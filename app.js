@@ -4,9 +4,9 @@ require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 
-app.options("*", cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }));
+// app.options("*", cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }));
 
-app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
+// app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
 
 app.use(express.json());
 
