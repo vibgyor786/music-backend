@@ -4,13 +4,12 @@ require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 
-let corsOptions = {
-  // origin: "https://code2clone.ieeessitvit.tech",
-  origin:"http://localhost:3000",
-  credentials: true,
-
-  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-};
+const corsOrigin ={
+  origin:'http://localhost:3000', //or whatever port your frontend is using
+  credentials:true,            
+  optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
 app.use((req, res, next) => {
   // res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Headers", "Authorization");
@@ -23,7 +22,7 @@ app.use((req, res, next) => {
 
   next();
 });
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 // app.use(cors({ origin: true }));
 app.use(express.json());
 
