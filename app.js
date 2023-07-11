@@ -3,6 +3,7 @@ const app = express();
 require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
+
 let corsOptions = {
   // origin: "https://code2clone.ieeessitvit.tech",
   origin:"http://localhost:3000",
@@ -10,6 +11,18 @@ let corsOptions = {
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
 };
+app.use((req, res, next) => {
+  // res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Headers", "Authorization");
+  // res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
+
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  // );
+
+  next();
+});
 app.use(cors(corsOptions));
 // app.use(cors({ origin: true }));
 app.use(express.json());
