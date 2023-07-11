@@ -16,7 +16,7 @@ var corsOptions = {
   origin: "https://music-frontend-phi.vercel.app",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://music-frontend-phi.vercel.app" }));
 // app.use((req, res, next) => {
 //   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //   // res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT,DELETE");
