@@ -34,10 +34,10 @@ app.use(cors({ origin: "https://music-frontend-phi.vercel.app" }));
 // app.use(cors(corsOptions));
 
 // user authentication routes
+app.options("*", cors());
 app.get("/", (req, res) => {
   res.send("Working");
 });
-app.options("*", cors());
 
 app.use("/api/users/", userRoute);
 
