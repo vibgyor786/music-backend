@@ -1,8 +1,13 @@
+const artistsRoute = require("./routes/artists");
+const userRoute = require("./routes/auth");
+const albumRoute = require("./routes/albums");
+const songRoute = require("./routes/songs");
 const express = require("express");
 const app = express();
 require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
+const router = require("./routes/artists");
 
 var whitelist = ['http://localhost:3000']
 
@@ -28,23 +33,21 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 // app.use(cors(corsOptions));
 
 // user authentication routes
-const userRoute = require("./routes/auth");
-
+app.get('/',(req,res)=>{
+  res.send("Working");
+})
 app.options('*', cors())
 
 
 app.use("/api/users/",  userRoute);
 
 // Artist links
-const artistsRoute = require("./routes/artists");
 app.use("/api/artists/",  artistsRoute);
 
 // Album links
-const albumRoute = require("./routes/albums");
 app.use("/api/albums/",  albumRoute);
 
 // Songs links
-const songRoute = require("./routes/songs");
 app.use("/api/songs/",  songRoute);
 
 // If any depreciation warning add depreciation options
