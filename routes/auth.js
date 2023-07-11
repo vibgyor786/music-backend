@@ -15,7 +15,7 @@ var corsOptionsDelegate = function (req, callback) {
 const router = require("express").Router();
 
 router.get("/login",  cors(corsOptionsDelegate),async (req, res) => {
-  // console.log(req.headers)
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   if (!req.headers.authorization) {
     return res.status(500).send({ message: "Invalid Token" });
   }
