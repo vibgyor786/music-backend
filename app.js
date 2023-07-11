@@ -4,25 +4,11 @@ require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 
-let corsOptions = {
-  // origin: "https://code2clone.ieeessitvit.tech",
-  origin:"http://localhost:3000",
-  credentials: true,
 
-  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-};
+app.use(cors({
+  origin: 'http://localhost:3000/'
+}));
 
-
-app.options('*', cors())
-
-app.use(express.json());
-app.use(function(req, res, next) { //allow cross origin requests
-  res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
 // user authentication routes
 const userRoute = require("./routes/auth");
 app.use("/api/users/", userRoute);
