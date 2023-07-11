@@ -6,15 +6,11 @@ const { default: mongoose } = require("mongoose");
 
 var whitelist = ['http://localhost:3000']
 
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
+app.use(cors(corsOptions))
 // app.use((req, res, next) => {
 //   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //   // res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT,DELETE");
@@ -33,19 +29,19 @@ var corsOptionsDelegate = function (req, callback) {
 
 // user authentication routes
 const userRoute = require("./routes/auth");
-app.use("/api/users/", cors(corsOptionsDelegate), userRoute);
+app.use("/api/users/",  userRoute);
 
 // Artist links
 const artistsRoute = require("./routes/artists");
-app.use("/api/artists/", cors(corsOptionsDelegate), artistsRoute);
+app.use("/api/artists/",  artistsRoute);
 
 // Album links
 const albumRoute = require("./routes/albums");
-app.use("/api/albums/", cors(corsOptionsDelegate), albumRoute);
+app.use("/api/albums/",  albumRoute);
 
 // Songs links
 const songRoute = require("./routes/songs");
-app.use("/api/songs/", cors(corsOptionsDelegate), songRoute);
+app.use("/api/songs/",  songRoute);
 
 // If any depreciation warning add depreciation options
 // mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true }, () => {
