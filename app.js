@@ -3,6 +3,7 @@ const app = express();
 require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
+app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -17,9 +18,12 @@ const { default: mongoose } = require("mongoose");
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
 
+  // Pass to next layer of middleware
+  next();
+});
 let corsOptions = {
   // origin: "https://code2clone.ieeessitvit.tech",
-  origin:"http://localhost:3000",
+  // origin:"http://localhost:3000",
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
