@@ -2,20 +2,11 @@ const admin = require("../config/firebase.config");
 const song = require("../models/song");
 const user = require("../models/user");
 const cors = require("cors");
-var whitelist = ['http://localhost:3000']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+
 const router = require("express").Router();
 
-router.get("/login",  cors(corsOptionsDelegate),async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+router.get("/login",  async (req, res) => {
+  // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   if (!req.headers.authorization) {
     return res.status(500).send({ message: "Invalid Token" });
   }

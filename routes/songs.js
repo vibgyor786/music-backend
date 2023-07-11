@@ -11,8 +11,8 @@ var corsOptionsDelegate = function (req, callback) {
   }
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
-router.get("/getAll", cors(corsOptionsDelegate), async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+router.get("/getAll", async (req, res) => {
+ 
   const options = {
     // sort returned documents in ascending order
     sort: { createdAt: 1 },
