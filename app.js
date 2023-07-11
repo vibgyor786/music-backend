@@ -6,7 +6,7 @@ const { default: mongoose } = require("mongoose");
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://music-frontend-ix4o.vercel.app/');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
 });
 let corsOptions = {
   // origin: "https://code2clone.ieeessitvit.tech",
-  origin:"*",
+  origin:"https://music-frontend-ix4o.vercel.app/",
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
