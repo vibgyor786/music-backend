@@ -29,10 +29,10 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 
 // user authentication routes
 const userRoute = require("./routes/auth");
-app.options('/api/users/', cors())
-app.options('/api/artists/', cors())
-app.options('/api/albums/', cors())
-app.options('/api/songs/', cors())
+
+app.options('*', cors())
+
+
 app.use("/api/users/",  userRoute);
 
 // Artist links
