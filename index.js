@@ -9,13 +9,14 @@ const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const router = require("./routes/artists");
 
-var whitelist = ['http://localhost:3000']
+var whitelist = ["http://localhost:3000"];
 
 var corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors({ origin: 'http://localhost:3000' }))
+  // origin: 'http://localhost:3000',
+  origin: "https://music-frontend-phi.vercel.app/login",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors({ origin: "http://localhost:3000" }));
 // app.use((req, res, next) => {
 //   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //   // res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT,DELETE");
@@ -33,22 +34,21 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 // app.use(cors(corsOptions));
 
 // user authentication routes
-app.get('/',(req,res)=>{
+app.get("/", (req, res) => {
   res.send("Working");
-})
-app.options('*', cors())
+});
+app.options("*", cors());
 
-
-app.use("/api/users/",  userRoute);
+app.use("/api/users/", userRoute);
 
 // Artist links
-app.use("/api/artists/",  artistsRoute);
+app.use("/api/artists/", artistsRoute);
 
 // Album links
-app.use("/api/albums/",  albumRoute);
+app.use("/api/albums/", albumRoute);
 
 // Songs links
-app.use("/api/songs/",  songRoute);
+app.use("/api/songs/", songRoute);
 
 // If any depreciation warning add depreciation options
 // mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true }, () => {
