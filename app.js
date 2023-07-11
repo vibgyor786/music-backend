@@ -3,8 +3,15 @@ const app = express();
 require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
+let corsOptions = {
+  // origin: "https://code2clone.ieeessitvit.tech",
+  origin:"http://localhost:3000",
+  credentials: true,
 
-app.use(cors({ origin: true }));
+  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+};
+app.use(cors(corsOptions));
+// app.use(cors({ origin: true }));
 app.use(express.json());
 
 // user authentication routes
