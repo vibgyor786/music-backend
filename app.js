@@ -4,9 +4,29 @@ require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 
-// app.options("*", cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }));
+app.use((req, res, next) => {
+  // res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Headers", "Authorization");
+  // res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
-// app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  // );
+
+  next();
+});
+
+let corsOptions = {
+  // origin: "https://code2clone.ieeessitvit.tech",
+  origin:"http://localhost:3000",
+  credentials: true,
+
+  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+};
+
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
