@@ -1,22 +1,8 @@
-const artist = require("../models/artist");
+const artist = require("../models/perosn_song_schema");
 
 const router = require("express").Router();
 
-router.get("/getAll", async (req, res) => {
-  const options = {
-    // sort returned documents in ascending order
-    sort: { createdAt: 1 },
-    // Include only the following
-    // projection : {}
-  };
 
-  const cursor = await artist.find(options);
-  if (cursor) {
-    res.status(200).send({ success: true, data: cursor });
-  } else {
-    res.status(200).send({ success: true, msg: "No Data Found" });
-  }
-});
 
 router.get("/getOne/:getOne", async (req, res) => {
   const filter = { _id: req.params.getOne };
@@ -79,4 +65,19 @@ router.delete("/delete/:deleteId", async (req, res) => {
   }
 });
 
+router.get("/getAll", async (req, res) => {
+  const options = {
+    // sort returned documents in ascending order
+    sort: { createdAt: 1 },
+    // Include only the following
+    // projection : {}
+  };
+
+  const cursor = await artist.find(options);
+  if (cursor) {
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    res.status(200).send({ success: true, msg: "No Data Found" });
+  }
+});
 module.exports = router;

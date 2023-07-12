@@ -1,44 +1,17 @@
-const song = require("../models/song");
+const song = require("../models/listen_schema");
 const cors = require("cors");
 const router = require("express").Router();
-var whitelist = ['http://localhost:3000']
+var whitelist = ["http://localhost:3000"];
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  if (whitelist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
   } else {
-    corsOptions = { origin: false } // disable CORS for this request
+    corsOptions = { origin: false }; // disable CORS for this request
   }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
-router.get("/getAll", async (req, res) => {
- 
-  const options = {
-    // sort returned documents in ascending order
-    sort: { createdAt: 1 },
-    // Include only the following
-    // projection : {}
-  };
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
 
-  const cursor = await song.find(options);
-  if (cursor) {
-    res.status(200).send({ success: true, data: cursor });
-  } else {
-    res.status(200).send({ success: true, msg: "No Data Found" });
-  }
-});
-
-router.get("/getOne/:getOne", async (req, res) => {
-  const filter = { _id: req.params.getOne };
-
-  const cursor = await song.findOne(filter);
-
-  if (cursor) {
-    res.status(200).send({ success: true, data: cursor });
-  } else {
-    res.status(200).send({ success: true, msg: "No Data Found" });
-  }
-});
 
 router.post("/save", async (req, res) => {
   // console.log('save')
@@ -60,6 +33,20 @@ router.post("/save", async (req, res) => {
     res.status(400).send({ success: false, msg: error });
   }
 });
+
+router.get("/getOne/:getOne", async (req, res) => {
+  const filter = { _id: req.params.getOne };
+
+  const cursor = await song.findOne(filter);
+
+  if (cursor) {
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    res.status(200).send({ success: true, msg: "No Data Found" });
+  }
+});
+
+
 
 router.put("/update/:updateId", async (req, res) => {
   const filter = { _id: req.params.updateId };
@@ -103,4 +90,19 @@ router.get("/getFavouritesSongs", async (req, res) => {
   res.send(query);
 });
 
+router.get("/getAll", async (req, res) => {
+  const options = {
+    // sort returned documents in ascending order
+    sort: { createdAt: 1 },
+    // Include only the following
+    // projection : {}
+  };
+
+  const cursor = await song.find(options);
+  if (cursor) {
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    res.status(200).send({ success: true, msg: "No Data Found" });
+  }
+});
 module.exports = router;

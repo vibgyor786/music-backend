@@ -1,11 +1,30 @@
 const admin = require("../config/firebase.config");
-const song = require("../models/song");
+const song = require("../models/listen_schema");
 const user = require("../models/user");
 const cors = require("cors");
 
 const router = require("express").Router();
 
-router.get("/login",  async (req, res) => {
+
+router.get("/getUsers", async (req, res) => {
+  const options = {
+    // sort returned documents in ascending order
+    sort: { createdAt: 1 },
+    // Include only the following
+    // projection : {}
+  };
+
+  const cursor = await user.find(options);
+  if (cursor) {
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    res.status(200).send({ success: true, msg: "No Data Found" });
+  }
+});
+
+
+
+router.get("/login", async (req, res) => {
   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   if (!req.headers.authorization) {
     return res.status(500).send({ message: "Invalid Token" });
@@ -20,7 +39,7 @@ router.get("/login",  async (req, res) => {
     // console.log(decodeValue)
     // checking user email already exists or not
     const userExists = await user.findOne({ user_id: decodeValue.user_id });
-    console.log(userExists)
+    console.log(userExists);
     if (!userExists) {
       newUserData(decodeValue, req, res);
     } else {
@@ -47,21 +66,7 @@ router.put("/favourites/:userId", async (req, res) => {
   }
 });
 
-router.get("/getUsers", async (req, res) => {
-  const options = {
-    // sort returned documents in ascending order
-    sort: { createdAt: 1 },
-    // Include only the following
-    // projection : {}
-  };
 
-  const cursor = await user.find(options);
-  if (cursor) {
-    res.status(200).send({ success: true, data: cursor });
-  } else {
-    res.status(200).send({ success: true, msg: "No Data Found" });
-  }
-});
 
 router.get("/getUser/:userId", async (req, res) => {
   const filter = { _id: req.params.userId };

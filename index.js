@@ -1,13 +1,13 @@
-const artistsRoute = require("./routes/artists");
-const userRoute = require("./routes/auth");
-const albumRoute = require("./routes/albums");
-const songRoute = require("./routes/songs");
+const artistsRoute = require("./routes/person_song");
+const userRoute = require("./routes/secure");
+const albumRoute = require("./routes/group_song");
+const songRoute = require("./routes/listenauth");
 const express = require("express");
 const app = express();
 require("dotenv/config");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
-const router = require("./routes/artists");
+const router = require("./routes/person_song");
 
 var whitelist = ["http://localhost:3000"];
 
@@ -16,7 +16,7 @@ var corsOptions = {
   // origin: "https://music-frontend-phi.vercel.app",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://music-frontend-phi.vercel.app" }));
 // app.use((req, res, next) => {
 //   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //   // res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT,DELETE");
@@ -40,20 +40,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users/", userRoute);
-
-// Artist links
 app.use("/api/artists/", artistsRoute);
-
-// Album links
 app.use("/api/albums/", albumRoute);
-
-// Songs links
 app.use("/api/songs/", songRoute);
 
-// If any depreciation warning add depreciation options
-// mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true }, () => {
-//   console.log("Mongodb Connected");
-// });
+
+
+
 
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true });
 mongoose.connection
